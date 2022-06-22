@@ -12,7 +12,7 @@ const app = express()
 app.use(express.json())
 
 app.get('/', function (req, res) {
-  res.send('Hola Mundo')
+  res.send('Hola Mundo desde HEROKU')
 })
 
 app.post('/imagen', upload.single('imagen'), async function(req, res){
