@@ -18,17 +18,28 @@ app.get('/', function (req, res) {
 app.post('/imagen', upload.single('imagen'), async function(req, res){
   const body = req.body
   const imagen = req.file
+
+  console.log({file: req.file}) //pra ver que esta trayendo
+
   const processedImage = sharp(imagen.buffer)
   const resizedImage = processedImage.resize(800, 200, {
     fit: "contain",
     background: "#FFF"
   })
-  const resizedImageBuffer = await resizedImage.toBuffer()
+
+  let resizedImageBuffer
+
+  try {
+    resizedImageBuffer = await resizedImage.toBuffer() 
+  } catch (error) {
+    console.log({error})
+  }
+  
 
   fs.writeFileSync('nuevaruta/prueba.png', resizedImageBuffer)
   console.log(resizedImageBuffer)
   //res.send({ resizedImage: resizedImageBuffer}) //devuelve un arreglo para postman
-  res.send({ '$content-type': 'image/png', '$content': resizedImageBuffer.toString('base64')}) //base64 para poder enviar a word con power app
+  res.send({ '$content-type': 'image/png', '$content': resizedImageBuffer.toString('base64')}) //base64 para poder enviar a word con power automate
 })
 
 const PORT = process.env.PORT || 3000
