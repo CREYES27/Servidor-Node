@@ -27,7 +27,8 @@ app.post('/imagen', upload.single('imagen'), async function(req, res){
 
   fs.writeFileSync('nuevaruta/prueba.png', resizedImageBuffer)
   console.log(resizedImageBuffer)
-  res.send({ resizedImage: resizedImageBuffer})
+  //res.send({ resizedImage: resizedImageBuffer}) //devuelve un arreglo para postman
+  res.send({ '$content-type': 'image/png', '$content': resizedImageBuffer.toString('base64')}) //base64 para poder enviar a word con power app
 })
 
 const PORT = process.env.PORT || 3000
