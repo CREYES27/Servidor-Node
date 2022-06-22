@@ -2,7 +2,7 @@
     "$content-type": "multipart/form-data",
     "$multipart": [
         {
-            "body": ,
+            "body": "",
             "heders": {
                 "content-Disposition": "form-data;name=imagen;filename=prueba.png"
             }
